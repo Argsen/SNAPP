@@ -20,10 +20,10 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2017111500;
-$plugin->requires  = 2012110900;
-$plugin->component = 'report_snapp';
-$plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = 'v0.1.0 Testesd on Moodle 2.6.1 (Build - 2014002400)';
+defined('MOODLE_INTERNAL') || die();
+$plugin->version = 2017083001;  // YYYYMMDDHH (year, month, day, 24-hr time).
+$plugin->requires = 2015111600; // YYYYMMDDHH (This is the release version for Moodle 3.0).
+$plugin->maturity = MATURITY_STABLE;
+$plugin->release = 'v1.0.1';
+$plugin->component = 'block_snapp';

@@ -1,5 +1,6 @@
+
 <?php
-// This file is part of Mindmap module for Moodle - http://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,36 +16,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines the APIs used by report_forumgraph
- *
- * @package    report_snapp
- * @copyright  2017 Max Gong <max.gong@unisa.edu.com>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   snapp
+ * @copyright 2017, Max Gong <max.gong@unisa.edu.au>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
 
 /**
- * This function extends the navigation with the report items
- *
- * @param navigation_node $navigation The navigation node to extend
- * @param stdClass $course The course to object for the report
- * @param stdClass $context The context of the course
- */
-function report_forumgraph_extend_navigation_course($navigation, $course, $context) {
-    if (has_capability('report/snapp:view', $context)) {
-        $url = new moodle_url('/report/snapp/index.php', array('id'=>$course->id));
-        $navigation->add(get_string('pluginname', 'report_snapp'), $url, navigation_node::TYPE_SETTING, null, null, new pix_icon('i/report', ''));
-    }
-}
-
-/**
- * Get all forums in the course for use in dropdown list
+ * Get all forums with course id
  *
  * @param int $cid course id
  * @return array all forum in the course
  */
-function report_get_forums($cid) {
+function snapp_get_forumoptions($cid) {
     global $DB;
     $forumoptions = array();
     if ($course = $DB->get_record('course', array('id'=>$cid))) {
@@ -59,8 +43,78 @@ function report_get_forums($cid) {
                 }
             }
         } else {
-            $forumoptions[0] = get_string('noforumincourse', 'report_forumgraph');
+            $forumoptions[0] = get_string('noforumincourse', 'block_snapp');
         }
     }
     return $forumoptions;
+}
+
+/**
+ * Generate node and edge arrays by analysing all forum posts
+ * Node is the author, edge is the interaction (i.e. reply)
+ * An array used for mapping used id to array index is also returned
+ *
+ * @param int $fid forum id
+ * @return array 3 arrays: nodes, edges and user id mapping
+ */
+function snapp_get_d3_json($fid) {
+    global $DB;
+    //echo $fid;
+    if ($forum = $DB->get_record('forum', array('id'=>$fid))) {
+        if ($dids = $DB->get_records('forum_discussions', array('forum'=>$fid), '', 'id')) {
+            $discussion_ids = array();
+            foreach ($dids as $d) {
+                $discussion_ids[] = $d->id;
+            }
+            list($in_sql, $in_params) = $DB->get_in_or_equal($discussion_ids, SQL_PARAMS_NAMED);
+            $select = "discussion $in_sql";
+            if ($posts = $DB->get_records_select('forum_posts', $select, $in_params)) {
+                $context = context_course::instance($forum->course);
+                $nodes = array();
+                $edges = array();
+                $uid_mapping = array();
+                $count = 0;
+                foreach ($posts as $post) {
+                    $author = $DB->get_record('user', array('id'=>$post->userid));
+                    $sql = "SELECT roleid FROM {role_assignments} WHERE userid = :userid AND contextid = :contextid GROUP BY userid";
+                    $authorrole = $DB->get_field_sql($sql, array('userid'=>$post->userid, 'contextid'=>$context->id));
+                    
+                    // nodes array
+                    if (!isset($nodes[$author->id])) {
+                        $nodes[$author->id]['name'] = $author->lastname." ".$author->firstname;
+                        $nodes[$author->id]['userid'] = $author->id;
+                        $nodes[$author->id]['size'] = 1;
+                        $nodes[$author->id]['discussion'] = $post->parent ? 0:1;
+                        $nodes[$author->id]['reply'] = $post->parent ? 1:0;
+                        $nodes[$author->id]['group'] = ($authorrole==5)?1:5;
+                        $uid_mapping[$author->id] = $count;
+                        $count++;
+                    } else {
+                        $nodes[$author->id]['size']++;
+                        if (!($post->parent)) $nodes[$author->id]['discussion']++ ;
+                        if ($post->parent) $nodes[$author->id]['reply']++;
+                    }
+                    
+                    // edges array
+                    if ($post->parent) {
+                        $parent = $posts[$post->parent];
+                        if ($post->userid != $parent->userid) {
+                            if (!isset($edges[$post->userid."_".$parent->userid]) && !isset($edges[$parent->userid."_".$post->userid])) {
+                                $edges[$post->userid."_".$parent->userid] = 1;
+                            } else {
+                                if (isset($edges[$post->userid."_".$parent->userid])) {
+                                    $edges[$post->userid."_".$parent->userid]++;
+                                } else {
+                                    $edges[$parent->userid."_".$post->userid]++;
+                                }
+                            }
+                        }
+                    }
+                }
+                $return = array($nodes, $edges, $uid_mapping);
+                return $return;
+            }
+        }
+    }
+    return false;
 }

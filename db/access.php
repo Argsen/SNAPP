@@ -23,14 +23,35 @@
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
-    'report/snapp:view' => array(
-        'riskbitmask' => RISK_CONFIG,
+    'block/snapp:bemonitored' => array(
         'captype' => 'read',
-        'contextlevel' => CONTEXT_SYSTEM,
+        'contextlevel' => CONTEXT_BLOCK,
         'archetypes' => array(
-          'teacher' => CAP_ALLOW,
-          'editingteacher' => CAP_ALLOW,
-          'manager' => CAP_ALLOW
+            'student' => CAP_ALLOW,
         )
     ),
- );
+     'block/snapp:viewpages' => array(
+        'riskbitmask' => RISK_SPAM,
+        'captype' => 'read',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => array(
+            'guest' => CAP_PREVENT,
+            'student' => CAP_PREVENT,
+            'teacher' => CAP_ALLOW,
+            'editingteacher' => CAP_ALLOW,
+            'coursecreator' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+        )
+    ),
+
+    'block/snapp:addinstance' => array(
+        'riskbitmask' => RISK_SPAM | RISK_XSS,
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => array(
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+        ),
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
+    ),
+);
