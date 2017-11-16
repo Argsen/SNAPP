@@ -92,7 +92,7 @@ $("#snapp_load_network_centrality_chart").on("click", function(){
             var td = "<td>" + json[0][key].name + "</td>";
             $("#snapp_tab_3_table tr").eq(0).append(td);
 
-            var td = "<td>" + value + "</td>";
+            var td = "<td>" + Number(value).toFixed(2) + "</td>";
             $("#snapp_tab_3_table tr").eq(1).append(td);
 
         }
@@ -120,7 +120,7 @@ $("#snapp_load_network_centrality_chart").on("click", function(){
             var td = "<td>" + json[0][source].name + " <strong>to</strong> " + json[0][target].name + "</td>";
             $("#snapp_tab_3_table tr").eq(0).append(td);
 
-            var td = "<td>" + value + "</td>";
+            var td = "<td>" + Number(value).toFixed(2) + "</td>";
             $("#snapp_tab_3_table tr").eq(1).append(td);
         }
 
@@ -144,7 +144,7 @@ $("#snapp_load_network_centrality_chart").on("click", function(){
             var td = "<td>" + json[0][key].name + "</td>";
             $("#snapp_tab_3_table tr").eq(0).append(td);
 
-            var td = "<td>" + value + "</td>";
+            var td = "<td>" + Number(value).toFixed(2) + "</td>";
             $("#snapp_tab_3_table tr").eq(1).append(td);
 
         }
@@ -169,7 +169,7 @@ $("#snapp_load_network_centrality_chart").on("click", function(){
             var td = "<td>" + json[0][key].name + "</td>";
             $("#snapp_tab_3_table tr").eq(0).append(td);
 
-            var td = "<td>" + value + "</td>";
+            var td = "<td>" + Number(value).toFixed(2) + "</td>";
             $("#snapp_tab_3_table tr").eq(1).append(td);
 
         }
