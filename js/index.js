@@ -12,13 +12,15 @@ $(document).ready(function(){
     $('.tabs').tabslet();
 
     /**
-     * table 
+     * reload iframe
      */
 
-    setTimeout(function () {
-        $('#example').DataTable({
-            "order": [[3, "desc"]]
-        });
-    }, 1000);
+    $("#snapp_reload_iframe, #snapp_network_centrality").on("click", function(){
+
+        $('iframe').each(function() {
+            this.contentWindow.location.reload(true);
+          });
+    });
+
 
 });

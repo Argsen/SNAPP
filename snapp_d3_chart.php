@@ -35,17 +35,16 @@ $course_info = json_encode($course);
 
 /*------ search all related course forum ------*/
 $all_forum = snapp_get_forumoptions($courseid);
-$forums = array(); 
+$forums = array();
 $forums = json_encode($all_forum);
 
 $result = array();
-foreach($all_forum as $key => $value) {
+foreach ($all_forum as $key => $value) {
     // print "$key => $value\n";
     /*------ search forum graph ------*/
     $node_json = snapp_get_d3_json(intval($key));
 
     $result[$key] = $node_json;
-    
 }
 
 $json = json_encode($result);
@@ -76,9 +75,9 @@ $json = json_encode($result);
                     <h4>Social Networks Adapting Pedagogical Practice (SNAPP) version of D3</h4>
                     <div class='tabs tabs_default'>
                         <ul class='horizontal'>
-                            <li><a href="#tab-1">Visualisation</a></li>
+                            <li><a href="#tab-1" id="snapp_visualisation">Visualisation</a></li>
                             <li><a href="#tab-2">Statistics</a></li>
-                            <li><a href="#tab-3">Network Centrality</a></li>
+                            <li><a href="#tab-3" id="snapp_network_centrality">Network Centrality</a></li>
                             <li><a href="#tab-4">Help</a></li>
                             <li><a href="#tab-5">Credits</a></li>
                         </ul>
@@ -111,46 +110,42 @@ $json = json_encode($result);
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <h4>
-                                                Participants : <span id="snapp_statistics_participants">{{number}}</span>
-                                            </h4>
+                                            <h5>
+                                                Participants : <span id="snapp_statistics_participants"></span>
+                                            </h5>
                                         </div>
                                         <div class="col-sm-6">
-                                            <h4>
-                                                Total posts : <span id="snapp_statistics_total_posts">{{number}}</span>
-                                            </h4>
+                                            <h5>
+                                                Total posts : <span id="snapp_statistics_total_posts"></span>
+                                            </h5>
                                         </div>
 
                                     </div>
                                 </div>
 
-                                <table id="example" class="display" cellspacing="0" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Degree</th>
-                                            <th>In Degree</th>
-                                            <th>Out Degree</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id= "snapp_table">
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                        </tr>
-                                    </tbody>
+                                <table id="snapp_table" class="display" cellspacing="0" width="100%">
                                 </table>
                             </section>
                         </div>
-                        <div id='tab-3'><span>Tab 3</span></div>
+                        <div id='tab-3'>
+                            <section class="snapp_introduction" id="snapp_tab_3_section">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4>Please press "Load network centrality chart" to load</h4>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <!-- <iframe src="./iframe/tab3.html" id="snapp_iframe" frameborder="0" scrolling="no" onload="resizeIframe(this)">
+
+                                            </iframe> -->
+                                            <iframe src="./iframe/tab3.html" id="snapp_iframe" frameborder="0" scrolling="no">
+
+                                            </iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
                         <div id='tab-4'>
                             <section class="snapp_introduction">
                                 <h3>What is SNAPP?</h3>
@@ -162,7 +157,7 @@ $json = json_encode($result);
                                 <br>
                                 <br>
                                 <div style="text-align: center;">
-                                    <a href="http://research.uow.edu.au/learningnetworks/seeing/about/index.html" target="_blank">Visit the 'Seeing Networks' website for more information of SNAPP.</a>
+                                    <a href="" target="_blank">Visit the 'Seeing Networks' website for more information of SNAPP.</a>
                                 </div>
                                 <h3>Visualisation</h3>
                                 The "Visualisation" tab renders a social network diagram from the extracted forum interactions.&nbsp;Social network visualisations
@@ -290,6 +285,7 @@ $json = json_encode($result);
     <script src="js/lib/jquery.tabslet.min.js"></script>  
     <script src="js/lib/modernizr.custom.js"></script>  
     <script src="js/lib/jquery.dataTables.min.js"></script>  
+    <script src="js/lib/jsnetworkx.js"></script>  
 
     <!-- custom javascript -->
     <script src="js/index.js"></script> 
@@ -297,9 +293,12 @@ $json = json_encode($result);
     <script src="js/snapp_func.js"></script>
     <script src="js/graph.js"></script>
     <script>
+
+        /*------ global ------*/
         var forums_data = <?php echo $forums; ?>;
         var graph_json = <?php echo $json; ?>;
         var course_info = <?php echo $course_info; ?>;
+        var forum_choose_id = -1;
         
         /*------ course info name ------*/
         $("#snapp_course_name").text("");
@@ -315,6 +314,8 @@ $json = json_encode($result);
         /*------ bind event ------*/
         $("#snapp_create_visualisation").on("click", function(){
             var forum_id = $("#snapp_forum_options").val();
+
+            forum_choose_id = forum_id;
 
             var temp = {};
             temp = graph_json[forum_id];
@@ -376,7 +377,6 @@ $json = json_encode($result);
                 .force("collide", d3.ellipseForce(6, 0.5, 5))
                 .force("center", d3.forceCenter(width / 2, height / 2));
 
-            //todo: modify to direction graph
             /*------ build a arrow to use ------*/
             svg.append("svg:defs").selectAll("marker")
                 .data(["end"])
@@ -468,8 +468,6 @@ $json = json_encode($result);
             }
 
            /*------ update statistics tab ------*/
-
-           console.log(temp);
            var participants = 0;
            for(var item in temp[0]){
             participants++;
@@ -486,11 +484,91 @@ $json = json_encode($result);
            $("#snapp_statistics_total_posts").text("");
            $("#snapp_statistics_total_posts").text(total_posts);
 
-           //todo:
+           var connect_arr = temp[1];
+           var table_record = [];
 
+           var trigger = false;
+           var trigger_temp_source = "";
+
+           for(var item in connect_arr){
+               var key = item;
+               var value = connect_arr[item];
+
+               var source = key.split("_")[0];
+               var target = key.split("_")[1];
+               
+               if(source === trigger_temp_source){
+                 trigger = false;
+               }else{
+                 trigger = true;
+               }
+
+               if(trigger){
+                var record = {
+                  "name": "",
+                  "degree": 0,
+                  "in_degree": 0,
+                  "out_degree": 0
+                };
+
+                var data = [];
+                
+                record.name = temp[0][source].name;
+                var in_degree_total = 0;
+                var out_degree_total = 0;
+
+                for(var connect in temp[1]){
+
+                    if(connect.indexOf(source + "_") > -1){
+                        out_degree_total += parseInt(temp[1][connect]);
+                    }
+
+                    if(connect.indexOf("_" + source) > -1){
+                        in_degree_total += parseInt(temp[1][connect]);
+                    }
+
+                }
+
+                record.in_degree = in_degree_total;
+                record.out_degree = out_degree_total;
+                record.degree = in_degree_total + out_degree_total;
+
+                data.push(temp[0][source].name);
+                data.push(in_degree_total + out_degree_total);
+                data.push(in_degree_total);
+                data.push(out_degree_total);
+
+                trigger_temp_source = source;
+
+                table_record.push(data);
+
+               }
+               
+           }
+
+            /*------ table ------*/
+            $('#snapp_table').DataTable({
+                                        data: table_record,
+                                        columns: [
+                                            { title: "Name" },
+                                            { title: "Degree" },
+                                            { title: "In degree" },
+                                            { title: "Out degree" }
+                                        ]
+                                    });
 
             
         });
+
+        /*------ jsNetworkX ------*/
+        //todo :Average clustering, Transitivity, Density
+
+        function resizeIframe(obj) {
+            obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+        }
+
+
+
 
 
     </script>
