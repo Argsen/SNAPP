@@ -54,7 +54,7 @@ class block_snapp extends block_base
         $this->content->text .= "<br><br><a href= {$CFG->wwwroot}/blocks/snapp/snapp_d3_chart.php?id={$course->id}
         target=_blank><button>" . get_string('snapp', 'block_snapp') . "</button></a><br><br>";
 
-        $this->content->footer = 'snapp plugin version 0.1.0';
+        $this->content->footer = 'snapp plugin version 1.0.1';
      
         return $this->content;
     }

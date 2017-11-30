@@ -299,6 +299,7 @@ $json = json_encode($result);
         var graph_json = <?php echo $json; ?>;
         var course_info = <?php echo $course_info; ?>;
         var forum_choose_id = -1;
+        var dataTable;
         
         /*------ course info name ------*/
         $("#snapp_course_name").text("");
@@ -547,16 +548,32 @@ $json = json_encode($result);
            }
 
             /*------ table ------*/
-            $('#snapp_table').DataTable({
-                                        data: table_record,
-                                        columns: [
-                                            { title: "Name" },
-                                            { title: "Degree" },
-                                            { title: "In degree" },
-                                            { title: "Out degree" }
-                                        ]
-                                    });
 
+            if(typeof(dataTable) === 'undefined'){
+                
+                dataTable = $('#snapp_table').DataTable({
+                                                        data: table_record,
+                                                        columns: [
+                                                            { title: "Name" },
+                                                            { title: "Degree" },
+                                                            { title: "In degree" },
+                                                            { title: "Out degree" }
+                                                        ]
+                                                    });
+            }else{
+
+                if(table_record.length > 0){
+                    $('#snapp_table').DataTable().clear().draw();
+                    for(var i = 0; i < table_record.length; i++){
+                        $('#snapp_table').DataTable().row.add(table_record[i]).draw();
+                    }
+                }else{
+                    $('#snapp_table').DataTable().clear().draw();
+                    $('#snapp_table').DataTable().row.add(["", "", "", ""]).draw();
+                }
+
+                
+            } 
             
         });
 
