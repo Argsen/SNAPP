@@ -99,7 +99,8 @@ $("#snapp_load_network_centrality_chart").on("click", function(){
         
     });
     
-    var snapp_closeness = jsnx.edgeBetweennessCentrality(G);
+    // var snapp_closeness = jsnx.edgeBetweennessCentrality(G);
+    var snapp_closeness = jsnx.allPairsShortestPathLength(G);
 
     $("#snapp_closeness_btn").on("click", function(){
         $("#snapp_tab_3_table").empty();
@@ -112,16 +113,42 @@ $("#snapp_load_network_centrality_chart").on("click", function(){
             $("#snapp_tab_3_table").append(tr);
         }
 
+        /**
+         * re-calculated closeness
+         * @author: yin_gong<max.g.laboratory@gmail.com>
+         */
+
+        var re_arrange_arr = [];
+
         for (var [key, value] of snapp_closeness.entries()) {
 
-            var source = key[0];
-            var target = key[1];
+            var item = {
+                "source" : "",
+                "centrality": 0
+            };
 
-            var td = "<td>" + json[0][source].name + " <strong>to</strong> " + json[0][target].name + "</td>";
+            var sum = 0;
+
+            value.forEach(function(item, key, mapObj){
+                sum += item;
+            });
+
+            var centrality = 1.0/sum;
+
+            item.source = key;
+            item.centrality = centrality;
+
+            re_arrange_arr.push(item);
+        }
+
+        for(var item of re_arrange_arr){
+
+            var td = "<td>" + json[0][item.source].name + "</td>";
             $("#snapp_tab_3_table tr").eq(0).append(td);
 
-            var td = "<td>" + Number(value).toFixed(2) + "</td>";
+            var td = "<td>" + Number(item.centrality).toFixed(2) + "</td>";
             $("#snapp_tab_3_table tr").eq(1).append(td);
+
         }
 
     });

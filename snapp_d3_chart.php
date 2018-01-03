@@ -256,17 +256,15 @@ $json = json_encode($result);
                         <div id='tab-5'>
                             <section class="snapp_introduction">
                                 <h3>Credits</h3>
-                                <p>SNAPP has been developed as part of  a joint project, "'Seeing' networks: Visualising and evaluating student learning networks" - 
-                                an Australian Learning and Teaching Council funded project focused towards the development of ICT mediated data visualisation resources.  
-                                The project includes both National and International research partners:</p>
+                                <p>SNAPP was initially developed from an Australian Learning and Teaching Council funded research project: "'Seeing' networks: Visualising and evaluating student learning networks". The following have made substantial contributions to SNAPP:
+                                </p>
                                 <ul>
-                                    <li>University of Wollongong (Lead Institution) - Dr Shane Dawson and Associate Professor Lori Lockyer</li>
-                                    <li>RMIT University - Professor Phil Poronnik</li>
-                                    <li>Murdoch University - Associate Professor Rob Phillips</li>
-                                    <li>The University of Queensland - Professor Phil Long and Ms Aneesha Bakharia</li>
-                                    <li>University of British Columbia (Canada) - Dr Leah Macfadyen, Dr Michelle Lamberson and Associate Professor Gary Poole</li>
+                                    <li>Professor Shane Dawson</li>
+                                    <li>Dr Aneesha Bakharia</li>
+                                    <li>Mr An Zhao </li>
+                                    <li>Associate Professor Jing Gao</li>
                                 </ul>   
-                                <em>Cite as:</em> Dawson, S., Bakharia, A., & Heathcote, E. (2010). SNAPP: Realising the affordances of real-time SNA within networked learning environments. Paper presented at the Networked Learning Conference 2010, Aalborg, Denmark.
+                                <em>Cite as:</em> Dawson, S., Bakharia, A., & Heathcote, E. (2010). SNAPP: Realising the affordances of real-time SNA within networked learning environments. Paper presented at the Networked Learning Conference 2010, Aalborg, Denmark.  
                                 <br>
                             <section>
                         </div>
