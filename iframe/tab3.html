@@ -3,6 +3,7 @@
 <link rel="stylesheet" type="text/css" href="../css/skeleton.css">
 <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="../css/snapp_iframe.css" />
+
 <body>
     <section>
         <div class="container-fluid">
@@ -10,7 +11,7 @@
                 <div class="col-sm-4">
                 </div>
                 <div class="col-sm-4">
-                    <button id="snapp_load_network_centrality_chart">Load network centrality chart</button>
+                    <button id="snapp_load_network_centrality_chart">Load network centrality overview</button>
                 </div>
                 <div class="col-sm-4">
                 </div>
@@ -20,20 +21,30 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div id="canvas"></div>
-                </div>
+                    <div class="description"># : network centrality overview</div>
                 </div>
             </div>
         </div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-4">
-                    <h5>Average clustering : <span id="snapp_iframe_average_clustering"></span></h5>
-                </div>
-                <div class="col-sm-4">
-                    <h5>Transitivity : <span id="snapp_iframe_transitivity"></span></h5>
-                </div>
-                <div class="col-sm-4">
-                    <h5>Density : <span id="snapp_iframe_density"></span></h5>
+                <br>
+                <div class="col-sm-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Average clustering</th>
+                                <th scope="col">Transitivity</th>
+                                <th scope="col">Density</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="snapp_iframe_average_clustering"></td>
+                                <td id="snapp_iframe_transitivity"></td>
+                                <td id="snapp_iframe_density"></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -42,21 +53,22 @@
                 <div class="col-sm-12">
                     <ul>
                         <li>
-                            <b>Average clustering: </b> the clustering coefficient of an individual node is equal to the proportion of possible
-                            triangle through that node that actually exist (where a triangle is defined by three mutually linked nodes). Human
-                            social networks demonstrate high clustering since, as a rule, one's friends are more likely to be friends with each
-                            other than with randomly chosen person.
+                            <b>Average clustering: </b> the clustering coefficient of an individual node is equal to the proportion
+                            of possible triangle through that node that actually exist (where a triangle is defined by three
+                            mutually linked nodes). Human social networks demonstrate high clustering since, as a rule, one's
+                            friends are more likely to be friends with each other than with randomly chosen person.
                         </li>
                         <li>
-                            <b>Transitivity: </b> the proportion of all possible triangles between nodes that are actually present. Closely related
-                            to clustering, for obvious reasons.
+                            <b>Transitivity: </b> the proportion of all possible triangles between nodes that are actually present.
+                            Closely related to clustering, for obvious reasons.
                         </li>
                         <li>
-                            <b>Density: </b> the proportion of all possible links that are actually present. Human social networks tend to exhibit
-                            quite low density because of practical limits on the number of people any one person can know or befriend.
+                            <b>Density: </b> the proportion of all possible links that are actually present. Human social networks
+                            tend to exhibit quite low density because of practical limits on the number of people any one
+                            person can know or befriend.
                         </li>
                     </ul>
-                    
+
                 </div>
             </div>
         </div>
@@ -86,30 +98,40 @@
                 </tbody>
             </table>
         </div>
+        <br>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="canvas_details"></div>
+                    <div class="description" id="description_details"># : Centrlity details</div>
+                </div>
+            </div>
+        </div>
     </section>
     <br>
     <br>
     <section>
         <ul>
             <li>
-                <b>Degree Centrality:</b> simply the number of connections possessed by each node. Analogous to a person's raw popularity
-                in a human social network.
+                <b>Degree Centrality:</b> simply the number of connections possessed by each node. Analogous to a person's raw
+                popularity in a human social network.
             </li>
             <li>
-                <b>Closeness Centrality:</b> distance between nodes is defined by the shortest path between them (in terms of number
-                of discrete links). The closeness centrality of a node is equal to 1/(sum of distances to all other nodes).
+                <b>Closeness Centrality:</b> distance between nodes is defined by the shortest path between them (in terms of
+                number of discrete links). The closeness centrality of a node is equal to 1/(sum of distances to all other
+                nodes).
             </li>
             <li>
-                <b>Betweenness Centrality:</b> is equal to the proportion of all shortest paths between nodes that pass through a particular
-                node. Can be a valuable property in human social networks because people can leverage their connection to different
-                groups a variety of ways.
+                <b>Betweenness Centrality:</b> is equal to the proportion of all shortest paths between nodes that pass through
+                a particular node. Can be a valuable property in human social networks because people can leverage their
+                connection to different groups a variety of ways.
             </li>
             <li>
                 <b>Eigenvector Centrality:</b> is a bit more complicated to compute (see link above), but is based on the intuition
                 that an central node is one that is connected to other central nodes. Closely related to
                 <a href="https://en.wikipedia.org/wiki/PageRank">
-                    algorithms</a> used by Google and others to sort search results. This measure may not work for very small networks,
-                so try building up a reasonably sized network before clicking this button.
+                    algorithms</a> used by Google and others to sort search results. This measure may not work for very small
+                networks, so try building up a reasonably sized network before clicking this button.
             </li>
         </ul>
     </section>
@@ -121,4 +143,4 @@
 
 <script src="../js/lib/d3.min.js"></script>
 <script src="../js/lib/jsnetworkx.js"></script>
-<script src="../js/tab_iframe.js"></script> 
+<script src="../js/tab_iframe.js"></script>

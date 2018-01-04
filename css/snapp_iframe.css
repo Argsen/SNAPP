@@ -2,3 +2,37 @@ body{
     margin: 0px;
     width: 900px;
 }
+
+#canvas {
+    position: relative;
+    height: auto;
+    margin-top: 30px;
+    border: 1px solid #aaa;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    width: 100%;
+}
+
+.description {
+    position: inherit;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #EEE;
+    border-bottom: 1px solid #aaa;
+    border-left: 1px solid #aaa;
+    border-right: 1px solid #aaa;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 5px;
+}
+
+#canvas_details {
+    position: relative;
+    height: auto;
+    margin-top: 30px;
+    border: 1px solid #aaa;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    width: 100%;
+}

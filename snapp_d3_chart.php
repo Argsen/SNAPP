@@ -77,15 +77,15 @@ $json = json_encode($result);
                         <ul class='horizontal'>
                             <li><a href="#tab-1" id="snapp_visualisation">Visualisation</a></li>
                             <li><a href="#tab-2">Statistics</a></li>
-                            <li><a href="#tab-3" id="snapp_network_centrality">Network Centrality</a></li>
-                            <li><a href="#tab-4">Help</a></li>
+                            <!-- <li><a href="#tab-3" id="snapp_network_centrality">Network Centrality</a></li> -->
+                            <!-- <li><a href="#tab-4">Help</a></li> -->
                             <li><a href="#tab-5">Credits</a></li>
                         </ul>
-                        <div id='tab-1'>
+                        <div id='tab-1' style="height: 2000px;">
                             <section class="snapp_introduction">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-4" style="font-weight: bold;font-size: larger;">
                                             <p>Current course :</p>
                                             <p id="snapp_course_name">{{current course name}}</p>
                                         </div>
@@ -95,11 +95,16 @@ $json = json_encode($result);
                                             </select>
                                         </div>
                                         <div class="col-sm-4">
-                                            <br>
-                                            <button id="snapp_create_visualisation">Create Graph</button>
+                                            <button id="snapp_create_visualisation" style="display:none">Create Graph</button>
                                         </div>
-                                        <div class="col-sm-12">
+                                        <!-- <div class="col-sm-12">
                                             <svg width="900" height="600"></svg>
+                                        </div> -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <br>
+                                            <iframe src="./iframe/tab3.html" id="snapp_iframe" frameborder="0" scrolling="no"></iframe>
                                         </div>
                                     </div>
                                 </div>
@@ -353,7 +358,7 @@ $json = json_encode($result);
             }
 
             /*------ create d3 drawing ------*/
-
+            /*
             graph = temp_graph;
 
             d3.selectAll("svg > *").remove();
@@ -375,8 +380,10 @@ $json = json_encode($result);
                 .force("link", d3.forceLink().id(function (d) { return d.id; }))
                 .force("collide", d3.ellipseForce(6, 0.5, 5))
                 .force("center", d3.forceCenter(width / 2, height / 2));
+            */
 
             /*------ build a arrow to use ------*/
+            /*
             svg.append("svg:defs").selectAll("marker")
                 .data(["end"])
                 .enter().append("svg:marker")
@@ -465,6 +472,8 @@ $json = json_encode($result);
                 d.fx = null;
                 d.fy = null;
             }
+
+            */
 
            /*------ update statistics tab ------*/
            var participants = 0;
@@ -575,16 +584,19 @@ $json = json_encode($result);
             
         });
 
-        /*------ jsNetworkX ------*/
-        //todo :Average clustering, Transitivity, Density
+        $("#snapp_forum_options").on("change", function(){
+            $("#snapp_create_visualisation").trigger("click");
+        });
 
         function resizeIframe(obj) {
             obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
         }
 
-
-
-
+        $(document).ready(function(){
+            /*------ trigger init statue ------*/
+            $("#snapp_forum_options").trigger("change");
+            $("#snapp_create_visualisation").trigger("click");
+        });
 
     </script>
 
