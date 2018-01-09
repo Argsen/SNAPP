@@ -62,8 +62,9 @@ $json = json_encode($result);
         <link rel="stylesheet" type="text/css" href="css/normalize.css">
         <link rel="stylesheet" type="text/css" href="css/skeleton.css">
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css" />
-        <link rel="stylesheet" type="text/css" href="css/styles.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
+        <link rel="stylesheet" type="text/css" href="css/snapp_iframe.css">
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
 
     </head>
     <body>
@@ -81,19 +82,19 @@ $json = json_encode($result);
                             <!-- <li><a href="#tab-4">Help</a></li> -->
                             <li><a href="#tab-5">Credits</a></li>
                         </ul>
-                        <div id='tab-1' style="height: 2000px;">
+                        <div id='tab-1' style="height: 1300px;">
                             <section class="snapp_introduction">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-sm-4" style="font-weight: bold;font-size: larger;">
+                                        <div class="col-sm-6" style="font-weight: bold;font-size: larger;">
                                             <p>Current course :</p>
                                             <p id="snapp_course_name">{{current course name}}</p>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-6">
                                             <p>Forum</p>
                                             <select id="snapp_forum_options">
                                             </select>
-                                        </div>
+                                        </div> 
                                         <div class="col-sm-4">
                                             <button id="snapp_create_visualisation" style="display:none">Create Graph</button>
                                         </div>
@@ -104,7 +105,133 @@ $json = json_encode($result);
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <br>
-                                            <iframe src="./iframe/tab3.html" id="snapp_iframe" frameborder="0" scrolling="no"></iframe>
+                                            <section>
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-sm-4">
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <button id="snapp_load_network_centrality_chart">Load network centrality overview</button>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <button id="snapp_degree_btn">Degree</button>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <button id="snapp_closeness_btn">Closeness</button>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <button id="snapp_betweenness_btn">Betweenness</button>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <button id="snapp_eigenvector_btn">Eigenvector</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div id="canvas_details"></div>
+                                                            <div class="description" id="description_details"># : Centrlity details</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="container-fluid overview-wrap">
+                                                    <div class="row">
+                                                        <br>
+                                                        <div class="col-sm-12">
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">Average clustering</th>
+                                                                        <th scope="col">Transitivity</th>
+                                                                        <th scope="col">Density</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td id="snapp_iframe_average_clustering"></td>
+                                                                        <td id="snapp_iframe_transitivity"></td>
+                                                                        <td id="snapp_iframe_density"></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="container-fluid overview-wrap">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <ul>
+                                                                <li>
+                                                                    <b>Average clustering: </b> the clustering coefficient of an individual node is equal to the proportion
+                                                                    of possible triangle through that node that actually exist (where a triangle is defined by three
+                                                                    mutually linked nodes). Human social networks demonstrate high clustering since, as a rule, one's
+                                                                    friends are more likely to be friends with each other than with randomly chosen person.
+                                                                </li>
+                                                                <li>
+                                                                    <b>Transitivity: </b> the proportion of all possible triangles between nodes that are actually present.
+                                                                    Closely related to clustering, for obvious reasons.
+                                                                </li>
+                                                                <li>
+                                                                    <b>Density: </b> the proportion of all possible links that are actually present. Human social networks
+                                                                    tend to exhibit quite low density because of practical limits on the number of people any one
+                                                                    person can know or befriend.
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="container-fluid detail-wrap">
+                                                    <h4 id="snapp_tab_3_table_title"></h4>
+                                                    <table class="table">
+                                                        <tbody id="snapp_tab_3_table">
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <br>
+                                                <div class="container-fluid detail-wrap">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <ul>
+                                                                <li>
+                                                                    <b>Degree Centrality:</b> simply the number of connections possessed by each node. Analogous to a person's raw
+                                                                    popularity in a human social network.
+                                                                </li>
+                                                                <li>
+                                                                    <b>Closeness Centrality:</b> distance between nodes is defined by the shortest path between them (in terms of
+                                                                    number of discrete links). The closeness centrality of a node is equal to 1/(sum of distances to all other
+                                                                    nodes).
+                                                                </li>
+                                                                <li>
+                                                                    <b>Betweenness Centrality:</b> is equal to the proportion of all shortest paths between nodes that pass through
+                                                                    a particular node. Can be a valuable property in human social networks because people can leverage their
+                                                                    connection to different groups a variety of ways.
+                                                                </li>
+                                                                <li>
+                                                                    <b>Eigenvector Centrality:</b> is a bit more complicated to compute (see link above), but is based on the intuition
+                                                                    that an central node is one that is connected to other central nodes. Closely related toalgorithms used by Google and others to sort search results. This measure may not work for very small
+                                                                    networks, so try building up a reasonably sized network before clicking this button.
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                            <br>
+                                            <br>
+                                            <section>
+
+                                            </section>
                                         </div>
                                     </div>
                                 </div>
@@ -140,9 +267,6 @@ $json = json_encode($result);
                                             <h4>Please press "Load network centrality chart" to load</h4>
                                         </div>
                                         <div class="col-sm-12">
-                                            <!-- <iframe src="./iframe/tab3.html" id="snapp_iframe" frameborder="0" scrolling="no" onload="resizeIframe(this)">
-
-                                            </iframe> -->
                                             <iframe src="./iframe/tab3.html" id="snapp_iframe" frameborder="0" scrolling="no">
 
                                             </iframe>
@@ -290,9 +414,22 @@ $json = json_encode($result);
     <script src="js/lib/jquery.dataTables.min.js"></script>  
     <script src="js/lib/jsnetworkx.js"></script>  
 
+    <!-- datatable  export-->
+    <script type="text/javascript" src="js/lib/datatables/dataTables.tableTools.min.js"></script>
+    <script type="text/javascript" src="js/lib/datatables/copy_csv_xls_pdf.swf"></script>
+    <script type="text/javascript" src="js/lib/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="js/lib/datatables/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="js/lib/datatables/buttons.flash.min.js"></script>
+    <script type="text/javascript" src="js/lib/datatables/jszip.min.js"></script>
+    <script type="text/javascript" src="js/lib/datatables/pdfmake.min.js"></script>
+    <script type="text/javascript" src="js/lib/datatables/vfs_fonts.js"></script>
+    <script type="text/javascript" src="js/lib/datatables/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="js/lib/datatables/buttons.print.min.js"></script>
+
     <!-- custom javascript -->
     <script src="js/index.js"></script> 
-    <script src="js/lib/d3.v4.min.js"></script> 
+    <script src="js/lib/d3.min.js"></script>
+    <script src="js/lib/jsnetworkx.js"></script>
     <script src="js/snapp_func.js"></script>
     <script src="js/graph.js"></script>
     <script>
@@ -303,284 +440,484 @@ $json = json_encode($result);
         var course_info = <?php echo $course_info; ?>;
         var forum_choose_id = -1;
         var dataTable;
+        var cal_degree = function(G){
+
+            var snapp_degree = jsnx.degree(G);
+            var return_arr = [];
+
+            for (var [key, value] of snapp_degree.entries()) {
+                var temp = {
+                    "source": "",
+                    "centrality": 0
+                };
+                temp.source = key;
+                temp.centrality = value;
+
+                return_arr.push(temp);
+            }
+
+            return return_arr;
+
+        };
+
+        var cal_closeness = function(G){
+
+            var snapp_closeness = jsnx.allPairsShortestPathLength(G);
+
+            var re_arrange_arr = [];
+
+            for (var [key, value] of snapp_closeness.entries()) {
+
+                var item = {
+                    "source": "",
+                    "centrality": 0
+                };
+
+                var sum = 0;
+
+                value.forEach(function (item, key, mapObj) {
+                    sum += item;
+                });
+
+                var centrality = 0;
+
+                if(sum != 0){
+                    var centrality = 1.0 / sum;
+                }
+
+                item.source = key;
+                item.centrality = centrality;
+
+                re_arrange_arr.push(item);
+            }
+
+            return re_arrange_arr;
+
+        };
+
+        var cal_betweenness = function(G){
+            
+            var snapp_betweenness_centrality = jsnx.betweennessCentrality(G);
+            var return_arr = [];
+
+            for (var [key, value] of snapp_betweenness_centrality.entries()) {
+                var temp = {
+                    "source": "",
+                    "centrality": 0
+                };
+                temp.source = key;
+                temp.centrality = value;
+
+                return_arr.push(temp);
+            }
+
+            return return_arr;
+
+        };
+
+        var cal_eigenvector = function(G){
+            
+            var snapp_eigenvector_centrality = jsnx.eigenvectorCentrality(G);
+            var return_arr = [];
+            
+            for (var [key, value] of snapp_eigenvector_centrality.entries()) {
+                var temp = {
+                    "source": "",
+                    "centrality": 0
+                };
+                temp.source = key;
+                temp.centrality = value;
+
+                return_arr.push(temp);
+            }
+
+            return return_arr;
+        };
         
         /*------ course info name ------*/
         $("#snapp_course_name").text("");
         $("#snapp_course_name").text(course_info.fullname);
 
         /*------ structure select ------*/
+        /*------ add All option ------*/
         $("#snapp_forum_options").empty();
+        var option = "<option value='' id='all-value'> All </option>";
+        $("#snapp_forum_options").append(option);
+
         for(var item in forums_data){
             var option = "<option value='" + item + "'>" + forums_data[item] + "</option>";
             $("#snapp_forum_options").append(option);
+            $("#all-value").val(item + "-" + $("#all-value").val());
         }
 
         /*------ bind event ------*/
         $("#snapp_create_visualisation").on("click", function(){
-            var forum_id = $("#snapp_forum_options").val();
 
-            forum_choose_id = forum_id;
+            /*------ judge all option & others ------*/
+            var is_all_option = $("#snapp_forum_options").val().indexOf("-") !== -1 ? true : false;
 
-            var temp = {};
-            temp = graph_json[forum_id];
+            if(is_all_option){
 
-            /*------ re-structure data ------*/
-            var temp_graph = {
-                "nodes": [
-                ],
-                "links": [
-                ]
-            }
+                var forum_id_array = $("#snapp_forum_options").val().split("-");
+                /*------ pop out last redundancy ------*/
+                forum_id_array.pop();
+                forum_choose_id = forum_id_array;
 
-            /*------ append node ------*/
-            for(var item in temp[0]){
-                var nodes_temp = {"id": "", "group": 0, "value": 0};
-                nodes_temp.id = temp[0][item].name;
-                nodes_temp.group = parseInt(temp[0][item].group);
-                nodes_temp.value = parseInt(temp[0][item].size);
+                var parent_json = graph_json;
+                var id_list = forum_choose_id;
+                var all_json = [];
 
-                temp_graph.nodes.push(nodes_temp);
-            }
+                for(var i = 0; i < id_list.length ; i++){
 
-            /*------ append links ------*/
-            for(var item in temp[1]){
-                var links_temp = { "source": "", "target": "", "value": 0 };
+                    var jsondata = JSON.parse(JSON.stringify(parent_json[id_list[i]]));
 
-                var source_temp = temp[0][item.split("_")[0]].name;
-                var target_temp = temp[0][item.split("_")[1]].name;
+                    if(all_json.length === 0){
+                        //calculate 0
+                        all_json[0] = jsondata[0];
+                    
+                        //calculate 1
+                        all_json[1] = jsondata[1];
+            
+                        //calculate 2
+                        all_json[2] = jsondata[2];
+                    }else{
+                        
+                        for(var item in jsondata[0]){
+                            //calculate 0
 
-                links_temp.source = source_temp;
-                links_temp.target = target_temp;
-                links_temp.value = parseInt(temp[1][item]);
+                            if(typeof(all_json[0][item]) === "undefined"){
+                                all_json[0][item] = jsondata[0][item];
+                            }else{
+                                all_json[0][item]["size"] +=  jsondata[0][item]["size"];
+                                all_json[0][item]["reply"] +=  jsondata[0][item]["reply"];
+                            }
+                                
+                        }
 
-                temp_graph.links.push(links_temp);
+                        for(var item in jsondata[1]){
+                            //calculate 1
 
-            }
+                            if(typeof(all_json[1][item]) === "undefined"){
+                                all_json[1][item] = jsondata[1][item];
+                            }else{
+                                all_json[1][item] += jsondata[1][item];
+                            }
+                        
+                        }
 
-            /*------ create d3 drawing ------*/
-            /*
-            graph = temp_graph;
+                        for(var item in jsondata[2]){
+                            //calculate 2
 
-            d3.selectAll("svg > *").remove();
+                            if(typeof(all_json[2][item]) === "undefined"){
+                                all_json[2][item] = jsondata[2][item];
+                            }else{
+                                all_json[2][item] += jsondata[2][item];
+                            }
 
-            var svg = d3.select("svg"),
-                width = +svg.attr("width"),
-                height = +svg.attr("height");
+                        }
 
-            var color = d3.scaleOrdinal(d3.schemeCategory20);
-
-            var nd;
-            for (var i = 0; i < graph.nodes.length; i++) {
-                nd = graph.nodes[i];
-                nd.rx = nd.id.length * 4.5;
-                nd.ry = 12;
-            }
-
-            var simulation = d3.forceSimulation()
-                .force("link", d3.forceLink().id(function (d) { return d.id; }))
-                .force("collide", d3.ellipseForce(6, 0.5, 5))
-                .force("center", d3.forceCenter(width / 2, height / 2));
-            */
-
-            /*------ build a arrow to use ------*/
-            /*
-            svg.append("svg:defs").selectAll("marker")
-                .data(["end"])
-                .enter().append("svg:marker")
-                .attr("id", String)
-                .attr("viewBox", "0 -5 10 10")
-                .attr("refX", 35)
-                .attr("refY", -1.5)
-                .attr("markerWidth", 9)
-                .attr("markerHeight", 9)
-                .attr("orient", "auto")
-                .append("svg:path")
-                .attr("d", "M0,-5L10,0L0,5");
-
-            var link = svg.append("g")
-                .attr("class", "link")
-                .selectAll("line")
-                .data(graph.links)
-                .enter().append("line")
-                .style("stroke", "#BCBBB6")
-                .attr("marker-end", "url(#end)")
-            // .attr("stroke-width", function (d) { return Math.sqrt(d.value); });
-
-            var node = svg.append("g")
-                .attr("class", "node")
-                .selectAll("circle")
-                .data(graph.nodes)
-                .enter().append("circle")
-                .attr("r", function (d) { return Math.sqrt(d.value) * 10; })
-                .attr("rx", function (d) { return d.rx; })
-                .attr("ry", function (d) { return d.ry; })
-                .style("stroke", "#BCBBB6")
-                .style("stroke-width", "3px")
-                .attr("fill", function (d) { return color(d.group); })
-                .call(d3.drag()
-                    .on("start", dragstarted)
-                    .on("drag", dragged)
-                    .on("end", dragended));
-
-            var text = svg.append("g")
-                .attr("class", "labels")
-                .selectAll("text")
-                .data(graph.nodes)
-                .enter().append("text")
-                .attr("dy", 2)
-                .attr("text-anchor", "middle")
-                .text(function (d) { return d.id })
-                .attr("fill", "black");
-
-
-            simulation
-                .nodes(graph.nodes)
-                .on("tick", ticked);
-
-            simulation.force("link")
-                .links(graph.links);
-
-            function ticked() {
-                link
-                    .attr("x1", function (d) { return d.source.x; })
-                    .attr("y1", function (d) { return d.source.y; })
-                    .attr("x2", function (d) { return d.target.x; })
-                    .attr("y2", function (d) { return d.target.y; });
-
-                node
-                    .attr("cx", function (d) { return d.x; })
-                    .attr("cy", function (d) { return d.y; });
-                text
-                    .attr("x", function (d) { return d.x; })
-                    .attr("y", function (d) { return d.y; });
-
-            }
-
-            function dragstarted(d) {
-                if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-                d.fx = d.x;
-                d.fy = d.y;
-            }
-
-            function dragged(d) {
-                d.fx = d3.event.x;
-                d.fy = d3.event.y;
-            }
-
-            function dragended(d) {
-                if (!d3.event.active) simulation.alphaTarget(0);
-                d.fx = null;
-                d.fy = null;
-            }
-
-            */
-
-           /*------ update statistics tab ------*/
-           var participants = 0;
-           for(var item in temp[0]){
-            participants++;
-           }
-
-           var total_posts = 0;
-           for(var item in temp[0]){
-            total_posts += temp[0][item].reply;
-           }
-
-           $("#snapp_statistics_participants").text("");
-           $("#snapp_statistics_participants").text(participants);
-
-           $("#snapp_statistics_total_posts").text("");
-           $("#snapp_statistics_total_posts").text(total_posts);
-
-           var connect_arr = temp[1];
-           var table_record = [];
-
-           var trigger = false;
-           var trigger_temp_source = "";
-
-           for(var item in connect_arr){
-               var key = item;
-               var value = connect_arr[item];
-
-               var source = key.split("_")[0];
-               var target = key.split("_")[1];
-               
-               if(source === trigger_temp_source){
-                 trigger = false;
-               }else{
-                 trigger = true;
-               }
-
-               if(trigger){
-                var record = {
-                  "name": "",
-                  "degree": 0,
-                  "in_degree": 0,
-                  "out_degree": 0
-                };
-
-                var data = [];
-                
-                record.name = temp[0][source].name;
-                var in_degree_total = 0;
-                var out_degree_total = 0;
-
-                for(var connect in temp[1]){
-
-                    if(connect.indexOf(source + "_") > -1){
-                        out_degree_total += parseInt(temp[1][connect]);
-                    }
-
-                    if(connect.indexOf("_" + source) > -1){
-                        in_degree_total += parseInt(temp[1][connect]);
                     }
 
                 }
 
-                record.in_degree = in_degree_total;
-                record.out_degree = out_degree_total;
-                record.degree = in_degree_total + out_degree_total;
+                var G = new jsnx.Graph();
+        
+                for (var item in all_json[0]) {
+                    G.addNode(item, { count: all_json[0][item].size, color: 'yellow', label: all_json[0][item].name });
+                }
+            
+                var edges_arr = []
+                for (var item in all_json[1]) {
+                    var source = item.split("_")[0];
+                    var target = item.split("_")[1];
+            
+                    G.addEdge(source, target);
+                }
 
-                data.push(temp[0][source].name);
-                data.push(in_degree_total + out_degree_total);
-                data.push(in_degree_total);
-                data.push(out_degree_total);
+                var degree = cal_degree(G);
+                var closeness = cal_closeness(G);
+                var betweenness = cal_betweenness(G);
+                var eigenvector = cal_eigenvector(G);
 
-                trigger_temp_source = source;
+                var table_record = [];
 
-                table_record.push(data);
+                for (var item of degree) {
 
-               }
-               
-           }
+                    var temp = [];
 
-            /*------ table ------*/
+                    temp.push(all_json[0][item.source].name);
+                    temp.push(Number(item.centrality).toFixed(2))
 
-            if(typeof(dataTable) === 'undefined'){
+                    for (var items of closeness) {
+
+                        if(items.source === item.source){
+                            temp.push(Number(items.centrality).toFixed(2));
+                        }
+
+                    }
+
+                    for (var items of betweenness) {
+
+                        if(items.source === item.source){
+                            temp.push(Number(items.centrality).toFixed(2));
+                        }
                 
-                dataTable = $('#snapp_table').DataTable({
-                                                        data: table_record,
-                                                        columns: [
-                                                            { title: "Name" },
-                                                            { title: "Degree" },
-                                                            { title: "In degree" },
-                                                            { title: "Out degree" }
-                                                        ]
-                                                    });
+                    }
+
+                    for (var items of eigenvector) {
+
+                        if(items.source === item.source){
+                            temp.push(Number(items.centrality).toFixed(2));
+                        }
+                
+                    }
+
+                    table_record.push(temp);
+                }
+
+                /*------ table ------*/
+                if(typeof(dataTable) === 'undefined'){
+                    
+                    dataTable = $('#snapp_table').DataTable({
+                                                            data: table_record,
+                                                            columns: [
+                                                                { title: "Name" },
+                                                                { title: "Degree" },
+                                                                { title: "Closeness" },
+                                                                { title: "Betweenness" },
+                                                                { title: "Eigenvector" },
+                                                            ],
+                                                            dom: 'Bfrtip',
+                                                            buttons: ['copy','csv','excel','pdf','print']
+                                                        });
+                }else{
+
+                    if(table_record.length > 0){
+                        $('#snapp_table').DataTable().clear().draw();
+                        for(var i = 0; i < table_record.length; i++){
+                            $('#snapp_table').DataTable().row.add(table_record[i]).draw();
+                        }
+                    }else{
+                        $('#snapp_table').DataTable().clear().draw();
+                        $('#snapp_table').DataTable().row.add(["", "", "", ""]).draw();
+                    }
+
+                    
+                } 
+
             }else{
 
-                if(table_record.length > 0){
-                    $('#snapp_table').DataTable().clear().draw();
-                    for(var i = 0; i < table_record.length; i++){
-                        $('#snapp_table').DataTable().row.add(table_record[i]).draw();
-                    }
-                }else{
-                    $('#snapp_table').DataTable().clear().draw();
-                    $('#snapp_table').DataTable().row.add(["", "", "", ""]).draw();
+                var forum_id = $("#snapp_forum_options").val();
+
+                forum_choose_id = forum_id;
+
+                var temp = {};
+                temp = graph_json[forum_id];
+
+                /*------ re-structure data ------*/
+                var temp_graph = {
+                    "nodes": [
+                    ],
+                    "links": [
+                    ]
                 }
 
+                /*------ append node ------*/
+                for(var item in temp[0]){
+                    var nodes_temp = {"id": "", "group": 0, "value": 0};
+                    nodes_temp.id = temp[0][item].name;
+                    nodes_temp.group = parseInt(temp[0][item].group);
+                    nodes_temp.value = parseInt(temp[0][item].size);
+
+                    temp_graph.nodes.push(nodes_temp);
+                }
+
+                /*------ append links ------*/
+                for(var item in temp[1]){
+                    var links_temp = { "source": "", "target": "", "value": 0 };
+
+                    var source_temp = temp[0][item.split("_")[0]].name;
+                    var target_temp = temp[0][item.split("_")[1]].name;
+
+                    links_temp.source = source_temp;
+                    links_temp.target = target_temp;
+                    links_temp.value = parseInt(temp[1][item]);
+
+                    temp_graph.links.push(links_temp);
+
+                }
+
+                /*------ update statistics tab ------*/
+                var participants = 0;
+                for(var item in temp[0]){
+                    participants++;
+                }
+
+                var total_posts = 0;
+                for(var item in temp[0]){
+                    total_posts += temp[0][item].reply;
+                }
+
+                $("#snapp_statistics_participants").text("");
+                $("#snapp_statistics_participants").text(participants);
+
+                $("#snapp_statistics_total_posts").text("");
+                $("#snapp_statistics_total_posts").text(total_posts);
+
+                /*
+                var connect_arr = temp[1];
+                var table_record = [];
+
+                var trigger = false;
+                var trigger_temp_source = "";
+
+                for(var item in connect_arr){
+                    var key = item;
+                    var value = connect_arr[item];
+
+                    var source = key.split("_")[0];
+                    var target = key.split("_")[1];
+                    
+                    if(source === trigger_temp_source){
+                        trigger = false;
+                    }else{
+                        trigger = true;
+                    }
+
+                    if(trigger){
+                        var record = {
+                        "name": "",
+                        "degree": 0,
+                        "in_degree": 0,
+                        "out_degree": 0
+                        };
+
+                        var data = [];
+                        
+                        record.name = temp[0][source].name;
+                        var in_degree_total = 0;
+                        var out_degree_total = 0;
+
+                        for(var connect in temp[1]){
+
+                            if(connect.indexOf(source + "_") > -1){
+                                out_degree_total += parseInt(temp[1][connect]);
+                            }
+
+                            if(connect.indexOf("_" + source) > -1){
+                                in_degree_total += parseInt(temp[1][connect]);
+                            }
+
+                        }
+
+                        record.in_degree = in_degree_total;
+                        record.out_degree = out_degree_total;
+                        record.degree = in_degree_total + out_degree_total;
+
+                        data.push(temp[0][source].name);
+                        data.push(in_degree_total + out_degree_total);
+                        data.push(in_degree_total);
+                        data.push(out_degree_total);
+
+                        trigger_temp_source = source;
+
+                        table_record.push(data);
+
+                    }
+
+                    console.log(table_record);
+
+                    
+                }
+                */
+
+                var parent_json = graph_json;
+                var json = parent_json[forum_choose_id];
+            
+                var G = new jsnx.Graph();
+            
+                for (var item in json[0]) {
+                    G.addNode(item, { count: json[0][item].size, color: 'yellow', label: json[0][item].name });
+                }
+            
+                var edges_arr = []
+                for (var item in json[1]) {
+                    var source = item.split("_")[0];
+                    var target = item.split("_")[1];
+            
+                    G.addEdge(source, target);
+                }
+
+                var degree = cal_degree(G);
+                var closeness = cal_closeness(G);
+                var betweenness = cal_betweenness(G);
+                var eigenvector = cal_eigenvector(G);
+
+                var table_record = [];
+
+                for (var item of degree) {
+
+                    var temp = [];
+
+                    temp.push(json[0][item.source].name);
+                    temp.push(Number(item.centrality).toFixed(2))
+
+                    for (var items of closeness) {
+
+                        if(items.source === item.source){
+                            temp.push(Number(items.centrality).toFixed(2));
+                        }
+
+                    }
+
+                    for (var items of betweenness) {
+
+                        if(items.source === item.source){
+                            temp.push(Number(items.centrality).toFixed(2));
+                        }
                 
-            } 
+                    }
+
+                    for (var items of eigenvector) {
+
+                        if(items.source === item.source){
+                            temp.push(Number(items.centrality).toFixed(2));
+                        }
+                
+                    }
+
+                    table_record.push(temp);
+                }
+
+                /*------ table ------*/
+                if(typeof(dataTable) === 'undefined'){
+                    
+                    dataTable = $('#snapp_table').DataTable({
+                                                            data: table_record,
+                                                            columns: [
+                                                                { title: "Name" },
+                                                                { title: "Degree" },
+                                                                { title: "In degree" },
+                                                                { title: "Out degree" }
+                                                            ]
+                                                        });
+                }else{
+
+                    if(table_record.length > 0){
+                        $('#snapp_table').DataTable().clear().draw();
+                        for(var i = 0; i < table_record.length; i++){
+                            $('#snapp_table').DataTable().row.add(table_record[i]).draw();
+                        }
+                    }else{
+                        $('#snapp_table').DataTable().clear().draw();
+                        $('#snapp_table').DataTable().row.add(["", "", "", ""]).draw();
+                    }
+
+                    
+                } 
+
+            }
+ 
             
         });
 
@@ -588,17 +925,25 @@ $json = json_encode($result);
             $("#snapp_create_visualisation").trigger("click");
         });
 
-        function resizeIframe(obj) {
-            obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
-        }
-
         $(document).ready(function(){
             /*------ trigger init statue ------*/
             $("#snapp_forum_options").trigger("change");
             $("#snapp_create_visualisation").trigger("click");
+
+            $(".overview-wrap").each(function(){
+                $(this).hide();
+            });
+            $(".detail-wrap").each(function(){
+                $(this).hide();
+            });
+
         });
 
-    </script>
+        function resizeIframe(obj) {
+            obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+        }
 
+    </script>
+    <script src="js/tab_iframe.js"></script>
     </body>
 </html>

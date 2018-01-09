@@ -98,7 +98,7 @@ SECTION#body H2 {
 }
 
 SECTION {
-	background: #F1F1F1;
+	/* background: #F1F1F1; */
 }
 
 ARTICLE {
@@ -269,14 +269,25 @@ select{
 
 .snapp_introduction li{
 	display: block;
-    border-bottom: 1px solid;
+    border-bottom: none;
 }
 
 .snapp_introduction li:hover{
+	cursor: pointer;
     background: white;
-    border-bottom: 1px solid #68a697;
+    border-bottom: 1px solid;
 }
 
 ::-webkit-scrollbar { 
     display: none; 
+}
+
+.dt-button{
+	display: initial !important;
+    color: black !important;
+    text-decoration: underline !important;
+}
+
+.dt-button:hover{
+	cursor: pointer;
 }
