@@ -291,3 +291,7 @@ select{
 .dt-button:hover{
 	cursor: pointer;
 }
+
+.button_bottom{
+	margin-bottom: 20px;
+}

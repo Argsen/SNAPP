@@ -25,5 +25,5 @@ defined('MOODLE_INTERNAL') || die();
 $plugin->version = 2017083001;  // YYYYMMDDHH (year, month, day, 24-hr time).
 $plugin->requires = 2015111600; // YYYYMMDDHH (This is the release version for Moodle 3.0).
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = 'v1.3.0';
+$plugin->release = 'v1.4.0';
 $plugin->component = 'block_snapp';

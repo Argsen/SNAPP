@@ -65,6 +65,7 @@ $json = json_encode($result);
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
         <link rel="stylesheet" type="text/css" href="css/snapp_iframe.css">
         <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-slider.min.css">
 
     </head>
     <body>
@@ -119,18 +120,67 @@ $json = json_encode($result);
                                                     <br>
                                                     <div class="row">
                                                         <div class="col-sm-3">
-                                                            <button id="snapp_degree_btn">Degree</button>
+                                                            <button id="snapp_degree_btn" class="button_bottom">Degree</button>
+                                                            <div>
+                                                                <input id="ex1" type="text" data-slider-min="1" data-slider-max="30" data-slider-step="0.5" data-slider-value="1"/>
+                                                                <br>
+                                                                <span id="ex1CurrentSliderValLabel">Size : <span id="ex1SliderVal">1</span></span>
+                                                            </div>
+                                                            <br>
+                                                            <br>
+                                                            <div>
+                                                                <input id="ex1_1" type="text" data-slider-min="1" data-slider-max="5" data-slider-step="0.5" data-slider-value="1"/>
+                                                                <br>
+                                                                <span id="ex1_1CurrentSliderValLabel">Distance : <span id="ex1_1SliderVal">1</span></span>
+                                                            </div>
                                                         </div>
                                                         <div class="col-sm-3">
-                                                            <button id="snapp_closeness_btn">Closeness</button>
+                                                            <button id="snapp_closeness_btn" class="button_bottom">Closeness</button>
+                                                            <div>
+                                                                <input id="ex2" type="text" data-slider-min="1" data-slider-max="30" data-slider-step="0.5" data-slider-value="1"/>
+                                                                <br>
+                                                                <span id="ex2CurrentSliderValLabel">Size : <span id="ex2SliderVal">1</span></span>
+                                                            </div>                                               
+                                                            <br>
+                                                            <br>
+                                                            <div>
+                                                                <input id="ex2_1" type="text" data-slider-min="1" data-slider-max="5" data-slider-step="0.5" data-slider-value="1"/>
+                                                                <br>
+                                                                <span id="ex2_1CurrentSliderValLabel">Distance : <span id="ex2_1SliderVal">1</span></span>
+                                                            </div>
                                                         </div>
                                                         <div class="col-sm-3">
-                                                            <button id="snapp_betweenness_btn">Betweenness</button>
+                                                            <button id="snapp_betweenness_btn" class="button_bottom">Betweenness</button>
+                                                            <div>
+                                                                <input id="ex3" type="text" data-slider-min="1" data-slider-max="30" data-slider-step="0.5" data-slider-value="1"/>
+                                                                <br>
+                                                                <span id="ex3CurrentSliderValLabel">Size : <span id="ex3SliderVal">1</span></span>
+                                                            </div>
+                                                            <br>
+                                                            <br>
+                                                            <div>
+                                                                <input id="ex3_1" type="text" data-slider-min="1" data-slider-max="5" data-slider-step="0.5" data-slider-value="1"/>
+                                                                <br>
+                                                                <span id="ex3_1CurrentSliderValLabel">Distance : <span id="ex3_1SliderVal">1</span></span>
+                                                            </div>
                                                         </div>
                                                         <div class="col-sm-3">
-                                                            <button id="snapp_eigenvector_btn">Eigenvector</button>
+                                                            <button id="snapp_eigenvector_btn" class="button_bottom">Eigenvector</button>
+                                                            <div>
+                                                                <input id="ex4" type="text" data-slider-min="1" data-slider-max="30" data-slider-step="0.5" data-slider-value="1"/>
+                                                                <br>
+                                                                <span id="ex4CurrentSliderValLabel">Size : <span id="ex4SliderVal">1</span></span>     
+                                                            </div>
+                                                            <br>
+                                                            <br>
+                                                            <div>
+                                                                <input id="ex4_1" type="text" data-slider-min="1" data-slider-max="5" data-slider-step="0.5" data-slider-value="1"/>
+                                                                <br>
+                                                                <span id="ex4_1CurrentSliderValLabel">Distance : <span id="ex4_1SliderVal">1</span></span>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <br>
                                                 </div>
                                                 <br>
                                                 <div class="container-fluid">
@@ -257,7 +307,13 @@ $json = json_encode($result);
 
                                 <table id="snapp_table" class="display" cellspacing="0" width="100%">
                                 </table>
+                                
+                                <div class="container-fluid">
+                                    <button id="relationship_data" class="button_bottom">Export relationship data</button>    
+                                </div>
+                                
                             </section>
+
                         </div>
                         <div id='tab-3'>
                             <section class="snapp_introduction" id="snapp_tab_3_section">
@@ -412,11 +468,12 @@ $json = json_encode($result);
     <script src="js/lib/jquery.tabslet.min.js"></script>  
     <script src="js/lib/modernizr.custom.js"></script>  
     <script src="js/lib/jquery.dataTables.min.js"></script>  
+    <script src="js/lib/bootstrap_slider.min.js"></script> 
     <script src="js/lib/jsnetworkx.js"></script>  
 
     <!-- datatable  export-->
     <script type="text/javascript" src="js/lib/datatables/dataTables.tableTools.min.js"></script>
-    <script type="text/javascript" src="js/lib/datatables/copy_csv_xls_pdf.swf"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"></script>
     <script type="text/javascript" src="js/lib/datatables/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="js/lib/datatables/dataTables.buttons.min.js"></script>
     <script type="text/javascript" src="js/lib/datatables/buttons.flash.min.js"></script>
